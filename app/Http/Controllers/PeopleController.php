@@ -12,7 +12,7 @@ class PeopleController extends Controller
 
     public function create(Request $request)
     {
-        $person = new Person($request->except('_token'));
+        $person = new Person($request->only(['person_id', 'table_id']));
         $person->save();
 
         return $person;

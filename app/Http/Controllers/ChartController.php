@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class ChartController extends Controller
 {
@@ -21,16 +22,28 @@ class ChartController extends Controller
                 'heidi', 'ray', 'liz', 'beth', 'henry', 'tt', 'rich', 'randy', 'dima'
             ],
             'tables' => [
-                'love birds' => [
-                    'alex',
-                    'abbey',
-                    'erin',
-                    'zack',
-                    'jj',
-                    'katy'
+                [
+                    'name' => 'love birds',
+                    'container_id' => Str::snake('love birds'),
+                    'people' => [
+                        'alex',
+                        'abbey',
+                        'erin',
+                        'zack',
+                        'jj',
+                        'katy'
+                    ],
                 ],
-                'important folks' => [],
-                'avalanche budz' => []
+                [
+                    'name' => 'important folks',
+                    'container_id' => Str::snake('important folks'),
+                    'people' => []
+                ],
+                [
+                    'name' => 'avalanche',
+                    'container_id' => Str::snake('avalanche folks'),
+                    'people' => []
+                ]
             ]
         ];
 
