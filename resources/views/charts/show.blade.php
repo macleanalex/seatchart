@@ -40,30 +40,45 @@
         <h1>Seat Planner</h1>
         <p class="lead">This is a Hackertoberfest Project, and a project to help us with our wedding!</p>
 
-        <div id="people" class="card mb-4">
-            <div class="card-header bg-primary text-white">
-                People
+        <div class="row">
+            <div class="col-3">
+                <div id="people" class="card mb-4">
+                    <div class="card-header bg-light text-info">
+                        People
+                    </div>
+
+                    <div id="peopleContainer" class="card-body">
+
+                        <div class="border p-2 m-2 border-info" v-for="person in people">
+                            @{{ person }}
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
-            <div id="peopleContainer" class="card-body row">
+            <div class="col">
+                <div class="row">
 
-                <div class="border p-2 m-2 border-info col" v-for="person in people">
-                    @{{ person }}
+                    <div class="col-4" v-for="(table,index) in tables">
+                        <div class="card mb-4" >
+                            <div class="card-header">
+                                @{{ table.name }}
+                            </div>
+
+                            <div class="card-body" v-bind:id="table.container_id">
+
+                                <div class="border p-2 m-2 border-info" v-for="person in table.people">
+                                    @{{ person }}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
 
-            </div>
-        </div>
-
-        <div class="card mb-4" v-for="(table,index) in tables">
-            <div class="card-header">
-                @{{ table.name }}
-            </div>
-
-            <div class="card-body row" v-bind:id="table.container_id">
-
-                <div class="border p-2 m-2 border-info col" v-for="person in table.people">
-                    @{{ person }}
-                </div>
 
             </div>
         </div>
@@ -88,7 +103,7 @@
             containers.push( document.querySelector('#' + table.container_id ) );
         }
 
-        dragula(containers, {
+        var drake = dragula(containers, {
             isContainer: function (el) {
                 return false; // only elements in drake.containers will be taken into account
             },
@@ -108,6 +123,10 @@
             removeOnSpill: false,              // spilling will `.remove` the element, if this is true
             mirrorContainer: document.body,    // set the element that gets mirror elements appended
             ignoreInputTextSelection: true     // allows users to select input text, see details below
+        });
+
+        drake.on('drop', function(el, target, source, sibling) {
+            console.log(el, target, source, sibling);
         });
     }
 
